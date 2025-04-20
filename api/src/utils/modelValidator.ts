@@ -1,0 +1,1 @@
+export type ModelValidators = { [x: string]: (value: any) => boolean };
