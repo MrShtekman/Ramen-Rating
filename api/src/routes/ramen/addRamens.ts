@@ -2,32 +2,13 @@ import { startSession, Types } from 'mongoose';
 import Ramen from '../../schemas/Ramen';
 import Restaurant from '../../schemas/Restaurant';
 import { Request, Response } from 'express';
+import dayjs from 'dayjs';
 
 const addRamens = async (req: Request, res: Response) => {
     const session = await startSession();
 
     try {
-        const { 
-            name,
-            price,
-            restaurant: restaurantId,
-            rating,
-            created,
-            reviews,
-            flavor,
-            components,
-        } = req.body;
-
-        const ramen = {
-            name,
-            price,
-            restaurant: restaurantId,
-            rating,
-            created,
-            reviews,
-            flavor,
-            components,
-        };
+        const { restaurant: restaurantId } = req.body;
 
         if (typeof restaurantId !== 'string' || !Types.ObjectId.isValid(restaurantId)){
             return res.status(400).json({ message: 'Invalid restaurant ID' });
@@ -38,11 +19,16 @@ const addRamens = async (req: Request, res: Response) => {
             return res.status(404).json({ message: 'Restaurant not found' });
         }
 
-        session.withTransaction(async () => {
-            const newRamen = await Ramen.create(ramen);
+        const ramen = {
+            ...req.body,
+            created: dayjs().add(2, 'hour'),
+        }
+
+        await session.withTransaction(async () => {
+            const [newRamen] = await Ramen.create([ramen], { session });
     
             restaurant.ramen.push(newRamen._id);
-            await restaurant.save();
+            await restaurant.save({ session });
         });
         
         session.endSession();

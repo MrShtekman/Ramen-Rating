@@ -4,12 +4,8 @@ import dayjs from 'dayjs';
 
 const addRestaurant = async (req: Request, res: Response) => {
     try {
-        const { name, location, ramen, reviews } = req.body;
         const newRestaurant = {
-            name,
-            location,
-            ramen,
-            reviews,
+            ...req.body,
             created: dayjs().add(2, 'hour'),
         };
         // add check if restaurant already exists
