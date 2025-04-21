@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import reviewTypes from "../../constants/reviewTypes";
 
 
@@ -11,6 +11,10 @@ const ReviewSchema = new mongoose.Schema({
     type: {
         type: String,
         enum: Object.values(reviewTypes),
+        required: true,
+    },
+    target: {
+        type: Types.ObjectId,
         required: true,
     },
     created: {

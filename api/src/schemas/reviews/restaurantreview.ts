@@ -9,5 +9,5 @@ const restaurantReviewSchema = new mongoose.Schema({
     },
 });
 
-Review.discriminator("RamenReview", restaurantReviewSchema);
-export default mongoose.model("RamenReview", restaurantReviewSchema);
+Review.discriminator("RestaurantReview", restaurantReviewSchema);
+export default mongoose.model("RestaurantReview");

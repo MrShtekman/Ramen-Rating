@@ -22,4 +22,4 @@ const ramenReviewSchema = new mongoose.Schema({
 });
 
 Review.discriminator("RamenReview", ramenReviewSchema);
-export default mongoose.model("RamenReview", ramenReviewSchema);
+export default mongoose.model("RamenReview");
