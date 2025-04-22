@@ -9,9 +9,10 @@ What a visitor can do when launched:
 * See rankings, statistics and KPIs
 * ???
 * Ramen minigames with weekly rankings
-* Loot boxes
+* Paid subscription with daily newsletters about ramen
 * AI chatbot with unrivaled ramen knowledge
-* Collab with Foodora so that top ranked users gets discount
+* Collab with Foodora so that top ranked users get a discount
+* loot boxes
 
 ### To do: ###  
 **Backend**  
