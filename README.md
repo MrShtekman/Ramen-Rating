@@ -1,12 +1,17 @@
 # Ramen-Rating
 
-A simple fullstack web project made with **MERN stack**.  (Early work in progress)  
+Welcome to my very serious part-time project! Presenting a simple fullstack web project made with **MERN stack** to keep my current knowledge in check and further extend it  **(Early work in progress)**  
 
-What a visitor can do:  
+What a visitor can do when launched:  
 * Browse restaurants  
 * Browse ramens from a specific restaurant
 * Add reviews to that restaurant or ramen
 * See rankings, statistics and KPIs
+* ???
+* Ramen minigames with weekly rankings
+* Loot boxes
+* AI chatbot with unrivaled ramen knowledge
+* Collab with Foodora so that top ranked users gets discount
 
 ### To do: ###  
 **Backend**  
@@ -32,4 +37,5 @@ What a visitor can do:
 * User authentication
 * Migrations
 
-**Frontend**
+**Frontend**  
+To be continued
