@@ -1,20 +1,16 @@
 import express from "express";
 import mongoose from "mongoose";
-import MainRouter from "./src/routes/index";
+import MainRouter from "./routes/index";
+import configs from "./configs/common";
 
 const app = express();
-const port = 3000;
-const uri = 'mongodb+srv://MrShtekman:pain12345@cluster0.qwrah.mongodb.net/RamenRatings?retryWrites=true&w=majority&appName=Cluster0';
+const uri = configs.db.uri;
 
 app.use(express.json());
 app.use(express.urlencoded({extended: false}))
 
 app.get("/", (req, res) => {
     res.send("hello world!");
-})
-
-app.listen(port, () => {
-    console.log(`app on port ${port}`);
 })
 
 app.use("/main", MainRouter);
@@ -28,3 +24,5 @@ mongoose.connect(uri, clientOptions as mongoose.ConnectOptions)
 .catch(() => {
     console.log('connection failed');
 })
+
+export default app;
