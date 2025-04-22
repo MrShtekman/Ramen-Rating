@@ -8,7 +8,7 @@ import { Request, Response } from 'express';
 import { mongo, startSession, Types } from 'mongoose';
 import dayjs from 'dayjs';
 
-const addReview = async (req: Request, res: Response) => {
+const addReview = async (req: Request, res: Response): Promise<any> => {
     const session = await startSession();
 
     try {
@@ -48,10 +48,9 @@ const addReview = async (req: Request, res: Response) => {
             
         });
         
-        session.endSession();
         res.status(200).json("Review added successfully");
 
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({ message: error.message });
     } finally {
         session.endSession();

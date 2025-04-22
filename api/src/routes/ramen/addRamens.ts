@@ -4,7 +4,7 @@ import Restaurant from '../../schemas/Restaurant';
 import { Request, Response } from 'express';
 import dayjs from 'dayjs';
 
-const addRamens = async (req: Request, res: Response) => {
+const addRamens = async (req: Request, res: Response): Promise<any> => {
     const session = await startSession();
 
     try {
@@ -31,10 +31,9 @@ const addRamens = async (req: Request, res: Response) => {
             await restaurant.save({ session });
         });
         
-        session.endSession();
         res.status(200).json("Ramen added successfully");
 
-    } catch (error) {
+    } catch (error: any) {
         res.status(500).json({ message: error.message });
     } finally {
         session.endSession();
