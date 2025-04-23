@@ -15,14 +15,16 @@ app.get("/", (req, res) => {
 
 app.use("/main", MainRouter);
 
-const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
-
-mongoose.connect(uri, clientOptions as mongoose.ConnectOptions)
-.then(() => {
-    console.log('Connected!');
-})
-.catch(() => {
-    console.log('connection failed');
-})
+if(process.env.NODE_ENV !== "test"){
+    const clientOptions = { serverApi: { version: '1', deprecationErrors: true } };
+    
+    mongoose.connect(uri, clientOptions as mongoose.ConnectOptions)
+    .then(() => {
+        console.log('Connected!');
+    })
+    .catch(() => {
+        console.log('connection failed');
+    })
+}
 
 export default app;

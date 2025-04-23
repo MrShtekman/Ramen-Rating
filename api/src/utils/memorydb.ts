@@ -1,29 +1,47 @@
 import mongoose from 'mongoose';
-import { MongoMemoryServer } from 'mongodb-memory-server';
+import { MongoMemoryReplSet } from 'mongodb-memory-server';
 
-let mockDb: MongoMemoryServer | null = null;
+let mockDb: MongoMemoryReplSet | null = null;
+
+function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 export const mockDbConnect = async () => {
-    if(!mockDb) {
-        mockDb = await MongoMemoryServer.create();
+    try {
+        console.log("Connecting to in-memory MongoDB...");
+        if (!mockDb) {
+            mockDb = await MongoMemoryReplSet.create({
+                replSet: { count: 1 },
+                debug: true,
+            });
+        }
+        const uri = mockDb.getUri();
+        console.log("MongoDB URI:", uri);
+        await sleep(2000);
+    
+        if (mongoose.connection.readyState !== 0) {
+            console.log("MongoDB already connected, disconnecting...");
+            await mongoose.disconnect();
+        }
+    
+        await mongoose.connect(uri);
+        console.log("Connected to in-memory MongoDB");
+    } catch (error) {
+        console.error("Error connecting to in-memory MongoDB:", error);
     }
-    const uri = mockDb.getUri();
-
-    const dbOptions = {
-    };
-
-    if (mongoose.connection.readyState !== 0) {
-        await mongoose.disconnect();
-    }
-
-    await mongoose.connect(uri, dbOptions as mongoose.ConnectOptions);
 }
 
 export const mockDbDisconnect = async () => {
     if(mockDb) {
-        await mongoose.connection.dropDatabase();
-        await mongoose.connection.close();
-        await mockDb.stop();
-        mockDb = null;
+        try {
+            await mongoose.connection.dropDatabase();
+            await mongoose.connection.close();
+            await mongoose.disconnect();
+            await mockDb.stop();
+            mockDb = null;
+        } catch (error) {
+            console.error("Error disconnecting from in-memory MongoDB:", error);
+        }
     }
 }
