@@ -1,6 +1,7 @@
-import Restaurant from '../../schemas/Restaurant';
 import { Request, Response } from 'express';
 import dayjs from 'dayjs';
+
+import Restaurant from '../../schemas/Restaurant';
 
 const addRestaurant = async (req: Request, res: Response) => {
     try {
@@ -8,12 +9,10 @@ const addRestaurant = async (req: Request, res: Response) => {
             ...req.body,
             created: dayjs().add(2, 'hour'),
         };
-        // add check if restaurant already exists
+
         const restaurant = await Restaurant.create(newRestaurant);
-        res.status(200).json(restaurant);
-
-
-    } catch (error) {
+        res.status(200).json({ message: "Restaurant created successfully", restaurant});
+    } catch (error: any) {
         res.status(500).json({ message: error.message });
     }
 };

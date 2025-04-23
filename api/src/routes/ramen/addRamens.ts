@@ -1,8 +1,10 @@
 import { startSession, Types } from 'mongoose';
-import Ramen from '../../schemas/Ramen';
-import Restaurant from '../../schemas/Restaurant';
 import { Request, Response } from 'express';
 import dayjs from 'dayjs';
+
+import Ramen from '../../schemas/Ramen';
+import Restaurant from '../../schemas/Restaurant';
+
 
 const addRamens = async (req: Request, res: Response): Promise<any> => {
     const session = await startSession();
@@ -31,7 +33,7 @@ const addRamens = async (req: Request, res: Response): Promise<any> => {
             await restaurant.save({ session });
         });
         
-        res.status(200).json("Ramen added successfully");
+        res.status(200).json({ message: "Ramen added successfully", ramen });
 
     } catch (error: any) {
         res.status(500).json({ message: error.message });
