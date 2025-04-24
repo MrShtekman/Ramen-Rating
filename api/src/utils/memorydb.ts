@@ -1,27 +1,22 @@
 import mongoose from 'mongoose';
 import { MongoMemoryReplSet } from 'mongodb-memory-server';
 
-let mockDb: MongoMemoryReplSet | null = null;
 
-function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+let mockDb: MongoMemoryReplSet | null = null;
 
 export const mockDbConnect = async () => {
     try {
         console.log("Connecting to in-memory MongoDB...");
         if (!mockDb) {
             mockDb = await MongoMemoryReplSet.create({
-                replSet: { count: 1 },
+                replSet: { count: 4 },
                 debug: true,
             });
         }
         const uri = mockDb.getUri();
-        console.log("MongoDB URI:", uri);
-        await sleep(2000);
     
         if (mongoose.connection.readyState !== 0) {
-            console.log("MongoDB already connected, disconnecting...");
+            console.log("In-memory MongoDB already connected, disconnecting...");
             await mongoose.disconnect();
         }
     
@@ -40,7 +35,11 @@ export const mockDbDisconnect = async () => {
             await mongoose.disconnect();
             await mockDb.stop();
             mockDb = null;
-        } catch (error) {
+            console.log("Successfully disconnected in-memory MongoDB");
+        } catch (error: any) {
+            if(error.code === "ECONNRESET")
+                console.log("ECONNRESET error occured during MongoDB shutdown.");
+            else
             console.error("Error disconnecting from in-memory MongoDB:", error);
         }
     }
