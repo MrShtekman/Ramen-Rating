@@ -4,8 +4,8 @@ import dayjs from 'dayjs';
 
 import Ramen, { IRamen } from '../../schemas/Ramen';
 import Restaurant, { IRestaurant } from '../../schemas/Restaurant';
-import RamenReview from '../../schemas/reviews/ramenReview';
-import RestaurantReview from '../../schemas/reviews/restaurantReview';
+import RamenReview from '../../schemas/reviews/RamenReview';
+import RestaurantReview from '../../schemas/reviews/RestaurantReview';
 
 import reviewTypes from '../../constants/reviewTypes';
 
@@ -16,6 +16,7 @@ const addReview = async (req: Request, res: Response): Promise<any> => {
         const { target: targetId, type } = req.body;
 
         if (typeof targetId !== 'string' || !Types.ObjectId.isValid(targetId)){
+            console.log(req.body);
             return res.status(400).json({ message: 'Invalid target ID' });
         }
 
@@ -49,7 +50,7 @@ const addReview = async (req: Request, res: Response): Promise<any> => {
             
         });
         
-        res.status(200).json("Review added successfully");
+        res.status(200).json({ message: "Review added successfully", review });
 
     } catch (error: any) {
         res.status(500).json({ message: error.message });

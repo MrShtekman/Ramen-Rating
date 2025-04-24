@@ -9,7 +9,7 @@ export const reviewStatuses = {
     REJECTED: 'rejected',
 } as const; 
 
-export type AccountType = typeof reviewTypes[keyof typeof reviewTypes];
+export type ReviewType = typeof reviewTypes[keyof typeof reviewTypes];
 export type ReviewStatus = typeof reviewStatuses[keyof typeof reviewStatuses];
 
 export default reviewTypes;

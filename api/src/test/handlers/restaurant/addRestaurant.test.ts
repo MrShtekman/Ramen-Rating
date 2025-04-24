@@ -7,8 +7,8 @@ import restaurantFactory from "../../../utils/factories/restaurantFactory";
 
 import { mockDbConnect, mockDbDisconnect } from "../../../utils/memorydb";
 
-// beforeAll(async () => await mockDbConnect());
-// afterAll(async () => await mockDbDisconnect());
+beforeAll(async () => await mockDbConnect());
+afterAll(async () => await mockDbDisconnect());
 
 describe("Add Restaurant", () => {
     test.skip("Should creat a new restaurant", async () => {

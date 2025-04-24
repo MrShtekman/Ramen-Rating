@@ -14,25 +14,19 @@ beforeAll(async () => await mockDbConnect());
 afterAll(async () => await mockDbDisconnect());
 
 describe("Add Ramen", () => {
-    // let restaurantId: Types.ObjectId;
-    // let ramenId: Types.ObjectId;
+    let restaurantId: Types.ObjectId;
+    let ramenId: Types.ObjectId;
 
-    // beforeEach(async () => {
-    //     restaurantId = new Types.ObjectId();
-    //     ramenId = new Types.ObjectId();
-    
-    //     await Restaurant.create(restaurantFactory({
-    //         _id: restaurantId,
-    //     }));
-    // });
-
-    test("Should create a new ramen and gets put in the target restaurant", async () => {
-        const restaurantId = new Types.ObjectId();
-        const ramenId = new Types.ObjectId();
+    beforeEach(async () => {
+        restaurantId = new Types.ObjectId();
+        ramenId = new Types.ObjectId();
     
         await Restaurant.create(restaurantFactory({
             _id: restaurantId,
         }));
+    });
+
+    test("Should create a new ramen and gets put in the target restaurant", async () => {
         const ramen = ramenFactory({
             _id: ramenId,
             restaurant: restaurantId,
@@ -54,7 +48,7 @@ describe("Add Ramen", () => {
         expect(updatedRestaurant.ramen).toHaveLength(1);
         expect(updatedRestaurant.ramen[0]).toStrictEqual(ramenId);
     });
-    test.skip("Should throw error 400 if the restaurant ID is invalid", async () => {
+    test("Should throw error 400 if the restaurant ID is invalid", async () => {
         const restaurantId = "Look at me, I'm not a valid ID!";
         const ramenId = new Types.ObjectId();
 
@@ -76,13 +70,6 @@ describe("Add Ramen", () => {
         expect(response.body.message).toBe("Invalid restaurant ID");
     });
     test("should throw error 404 if the targeted restaurant does not exist", async () => {
-        const restaurantId = new Types.ObjectId();
-        const ramenId = new Types.ObjectId();
-
-        await Restaurant.create(restaurantFactory({
-            _id: restaurantId,
-        }));
-
         const ramen = ramenFactory({
             _id: ramenId,
         });
