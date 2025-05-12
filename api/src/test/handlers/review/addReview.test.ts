@@ -45,7 +45,7 @@ describe("Add Review", () => {
         });
 
         const response = await supertest(app)
-            .post("/main/review")
+            .post("/review")
             .send(review);
 
         expect(response.status).toBe(200);
@@ -67,7 +67,7 @@ describe("Add Review", () => {
         });
 
         const response = await supertest(app)
-            .post("/main/review")
+            .post("/review")
             .send(review);
 
         expect(response.status).toBe(200);
@@ -93,7 +93,7 @@ describe("Add Review", () => {
         });
 
         const response = await supertest(app)
-            .post("/main/review")
+            .post("/review")
             .send(review);
 
         expect(response.status).toBe(404);
@@ -106,7 +106,7 @@ describe("Add Review", () => {
         });
 
         const response = await supertest(app)
-            .post("/main/review")
+            .post("/review")
             .send(review);
 
         expect(response.status).toBe(404);
@@ -119,7 +119,7 @@ describe("Add Review", () => {
         });
 
         const response = await supertest(app)
-            .post("/main/review")
+            .post("/review")
             .send(review);
 
         expect(response.status).toBe(400);

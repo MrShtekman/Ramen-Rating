@@ -13,17 +13,18 @@ app.get("/", (req, res) => {
     res.send("hello world!");
 })
 
-app.use("/main", MainRouter);
+app.use("/", MainRouter);
 
 if(process.env.NODE_ENV !== "test"){
+    console.log(process.env.NODE_ENV);
     const clientOptions = { serverApi: { version: '1', deprecationErrors: true } };
     
     mongoose.connect(uri, clientOptions as mongoose.ConnectOptions)
     .then(() => {
-        console.log('Connected!');
+        console.log('Connected to MongoDB!');
     })
     .catch(() => {
-        console.log('connection failed');
+        console.log('connection to MongoDB failed');
     })
 }
 

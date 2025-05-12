@@ -11,7 +11,7 @@ beforeAll(async () => await mockDbConnect());
 afterAll(async () => await mockDbDisconnect());
 
 describe("Add Restaurant", () => {
-    test.skip("Should creat a new restaurant", async () => {
+    test("Should creat a new restaurant", async () => {
         const restaurantId = new Types.ObjectId();
 
         const restaurant = restaurantFactory({
@@ -19,7 +19,7 @@ describe("Add Restaurant", () => {
         });
 
         const response = await supertest(app)
-            .post("/main/restaurant")
+            .post("/restaurant")
             .send(restaurant);
         
         expect(response.status).toBe(200);
