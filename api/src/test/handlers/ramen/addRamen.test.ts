@@ -8,11 +8,6 @@ import Restaurant from "../../../schemas/Restaurant";
 import ramenFactory from "../../../utils/factories/ramenFactory";
 import restaurantFactory from "../../../utils/factories/restaurantFactory";
 
-import { mockDbConnect, mockDbDisconnect } from "../../../utils/memorydb";
-
-beforeAll(async () => await mockDbConnect());
-afterAll(async () => await mockDbDisconnect());
-
 describe("Add Ramen", () => {
     let restaurantId: Types.ObjectId;
     let ramenId: Types.ObjectId;

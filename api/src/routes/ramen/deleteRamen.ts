@@ -7,7 +7,7 @@ const deleteRamen = async (req: Request, res: Response): Promise<any> => {
     const session = await startSession();
     try {
         const { id } = req.params;
-        console.log(id);
+
         if(!Types.ObjectId.isValid(id)){
             return res.status(400).json({ message: 'Invalid ramen ID' });
         }

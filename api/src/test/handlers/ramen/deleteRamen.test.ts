@@ -9,11 +9,6 @@ import Ramen from "../../../schemas/Ramen";
 import ramenFactory from "../../../utils/factories/ramenFactory";
 import restaurantFactory from "../../../utils/factories/restaurantFactory";
 
-import { mockDbConnect, mockDbDisconnect } from '../../../utils/memorydb';  
-
-beforeAll(async () => await mockDbConnect());
-beforeAll(async () => await mockDbDisconnect());
-
 describe("Delete Ramen", () => {
     let restaurantId: Types.ObjectId;
     let ramenId: Types.ObjectId;

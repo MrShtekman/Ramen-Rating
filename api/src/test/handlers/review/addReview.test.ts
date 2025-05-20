@@ -13,11 +13,6 @@ import restaurantFactory from "../../../utils/factories/restaurantFactory";
 import reviewFactory from '../../../utils/factories/reviewFactory';
 import reviewTypes from "../../../constants/reviewTypes";
 
-import { mockDbConnect, mockDbDisconnect } from "../../../utils/memorydb";
-
-beforeAll(async () => await mockDbConnect());
-afterAll(async () => await mockDbDisconnect());
-
 describe("Add Review", () => {
     let restaurantId: Types.ObjectId;
     let ramenId: Types.ObjectId;
@@ -27,7 +22,6 @@ describe("Add Review", () => {
         restaurantId = new Types.ObjectId();
         ramenId = new Types.ObjectId();
         reviewId = new Types.ObjectId();
-
         await Restaurant.create(restaurantFactory({
             _id: restaurantId,
         }));
