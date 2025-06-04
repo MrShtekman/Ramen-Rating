@@ -1,6 +1,6 @@
 import app from "./app";
 import configs from "./configs/common";
-import { connectDB, disconnectDB } from "./connection";
+import { connectDB, disconnectAll } from "./connection";
 
 const port = configs.server.port;
 
@@ -15,7 +15,7 @@ process.on('SIGINT', async () => {
   console.log('SIGINT signal received.');
   try {
     server.close(async () => {
-      await disconnectDB();
+      await disconnectAll();
       process.exit(0);
     });
   } catch (error) {

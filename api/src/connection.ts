@@ -5,18 +5,15 @@ const DBuri = configs.db.uri;
 const testDBuri = configs.db.testUri;
 const clientOptions = { serverApi: { version: '1', deprecationErrors: true } };
 
-// let db;
-// let testDB;
-
 export async function connectDB() {
   const uri = configs.env === "dev" ? DBuri : testDBuri;
   return await mongoose.connect(uri, clientOptions as any);
 }
 
-export async function disconnectDB() {
+export async function disconnectAll() {
   await mongoose.disconnect();
 }
 
-export async function disconnectCon(db){
+export async function disconnectDB(db : mongoose.Mongoose) {
   await db.connection.close();
 }

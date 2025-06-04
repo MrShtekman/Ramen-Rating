@@ -1,18 +1,16 @@
-import { connectDB, disconnectDB, disconnectCon } from "../../connection";
+import { connectDB, disconnectDB } from "../../connection";
 import removeAllCollections from "./clearCollections";
 import mongoose from "mongoose";
 
 let db : mongoose.Mongoose;
 
 beforeAll(async () => {
-  //await connectDB();
   db = await connectDB();
 });
 
 afterAll(async () => {
     if(db) {
         await removeAllCollections(db);
-        //await disconnectDB();
-      await disconnectCon(db);
+        await disconnectDB(db);
     }
 });
