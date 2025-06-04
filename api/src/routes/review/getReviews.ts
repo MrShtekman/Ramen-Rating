@@ -5,7 +5,7 @@ const getReview = async (req: Request, res: Response) => {
     try {
         const objects = await Review.find(req.body);
         res.status(200).json(objects);
-    } catch (error) {
+    } catch (error : any) {
         res.status(500).json({ message: error.message });
     }
 };

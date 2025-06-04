@@ -14,12 +14,12 @@ const deleteRamen = async (req: Request, res: Response): Promise<any> => {
 
         const ramenToDelete = await Ramen.findById(id);
         if(!ramenToDelete){
-            return res.status(404).json({ message: `Ramen ${id} not found!`})
+            return res.status(404).json({ message: `Ramen not found!`})
         }
 
         const restaurant = await Restaurant.findById(ramenToDelete.restaurant);
         if(!restaurant){
-            return res.status(404).json({ message: `Ramen related restaurant ${ramenToDelete.restaurant} not found!`})
+            return res.status(404).json({ message: `Restaurant related to this Ramen not found!`})
         }
 
         await session.withTransaction(async () => {
