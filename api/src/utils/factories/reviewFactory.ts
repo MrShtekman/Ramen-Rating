@@ -1,7 +1,7 @@
 import { Types } from "mongoose";
 import dayjs from "dayjs";
 
-import reviewTypes, { ReviewType } from "../../constants/reviewTypes";
+import reviewTypes from "../../constants/reviewTypes";
 
 const reviewFactory = (type: string, overrides = {}) => {
     const baseReview = {

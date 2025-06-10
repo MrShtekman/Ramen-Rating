@@ -3,21 +3,24 @@ import Review from "./Review";
 
 const ramenReviewSchema = new mongoose.Schema({
     rating: {
-        broth: {
-            type: Number,
-            default: 0,
-            required: true,
+        type: {
+            broth: {
+                type: Number,
+                default: 0,
+                required: true,
+            },
+            toppings: {
+                type: Number,
+                default: 0,
+                required: true,
+            },
+            noodles: {
+                type: Number,
+                default: 0,
+                required: true,
+            },
         },
-        toppings: {
-            type: Number,
-            default: 0,
-            required: true,
-        },
-        noodles: {
-            type: Number,
-            default: 0,
-            required: true,
-        },
+        required: true,
     },
 });
 
