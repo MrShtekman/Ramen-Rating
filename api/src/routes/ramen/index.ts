@@ -1,5 +1,5 @@
 import express from "express";
-import addRamen from "./addRamens";
+import addRamen from "./addRamen";
 import getRamens from "./getRamens";
 import getRamen from "./getRamen";
 import updateRamen from "./updateRamen";
