@@ -7,5 +7,15 @@ export default {
     moduleNameMapper: {
         '^(\\.{1,2}/.*)\\.ts$': '$1',
     },
-    setupFilesAfterEnv: ['./src/utils/test/testSetup.ts'],
+    projects: [
+        {
+            displayName: 'endpoints',
+            setupFilesAfterEnv: ['./src/utils/test/testSetup.ts'],
+            testMatch: ['**/test/handlers/**/*.test.ts']
+        },
+        {
+            displayName: 'utils',
+            testMatch: ['**/test/utils/**/*.test.ts']
+        }
+    ]
 };
