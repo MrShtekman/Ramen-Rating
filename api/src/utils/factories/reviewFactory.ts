@@ -7,7 +7,7 @@ const reviewFactory = (type: string, overrides = {}) => {
     const baseReview = {
         comment: "Wow this is so good!",
         type,
-        target: new Types.ObjectId(),
+        subject: new Types.ObjectId(),
         created: dayjs(),
     };
 

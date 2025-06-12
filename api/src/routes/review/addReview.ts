@@ -12,10 +12,10 @@ const addReview = async (req: Request, res: Response): Promise<any> => {
     const session = await startSession();
 
     try {
-        const { target: targetId, type } = req.body;
+        const { subject: targetId, type } = req.body;
 
         if (typeof targetId !== 'string' || !Types.ObjectId.isValid(targetId)) {
-            return res.status(400).json({ message: 'Invalid target ID' });
+            return res.status(400).json({ message: 'Invalid subject ID' });
         }
 
         if (!Object.values(reviewTypes).includes(type)) {
@@ -23,12 +23,12 @@ const addReview = async (req: Request, res: Response): Promise<any> => {
         }
 
         const targetModel = reviewTypeToTargetModel[type as ReviewType] as mongoose.Model<any>;
-        const target = await targetModel.findById(targetId);
-        if (!target) {
+        const subject = await targetModel.findById(targetId);
+        if (!subject) {
             return res.status(404).json({ message: `${cap(type)} not found` });
         }
 
-        const reviewModel = reviewTypeToSchema[type as ReviewType] as mongoose.Model<any>;
+        const reviewModel = reviewTypeToSchema[type as ReviewType];
         const invalidFields = fieldValidator(req.body, reviewModel);
         if (invalidFields.length > 0) {
             return res.status(400).json({ message: `Invalid field(s): ${invalidFields.join(', ')}` })
@@ -41,8 +41,8 @@ const addReview = async (req: Request, res: Response): Promise<any> => {
 
         await session.withTransaction(async () => {
             const [newReview] = await reviewModel.create([review], { session });
-            target.reviews.push(newReview._id);
-            await target.save({ session });
+            subject.reviews.push(newReview._id);
+            await subject.save({ session });
         });
 
         res.status(200).json({ message: "Review added successfully", review });
