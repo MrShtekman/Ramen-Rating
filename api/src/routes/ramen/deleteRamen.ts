@@ -1,5 +1,7 @@
 import Ramen from '../../schemas/Ramen';
 import Restaurant from '../../schemas/Restaurant';
+import Review from '../../schemas/reviews/Review';
+
 import { Request, Response } from 'express';
 import { startSession, Types } from 'mongoose';
 
@@ -23,7 +25,10 @@ const deleteRamen = async (req: Request, res: Response): Promise<any> => {
         }
 
         await session.withTransaction(async () => {
-            await Ramen.findByIdAndDelete(ramenToDelete._id);
+            if(ramenToDelete.reviews.length > 0){
+                await Review.deleteMany({ _id: { $in: ramenToDelete.reviews } }, { session });
+            }
+            await Ramen.findByIdAndDelete(ramenToDelete._id, { session });
             await restaurant.updateOne({ $pull: { ramen: ramenToDelete._id}}, { session });
         })
     
