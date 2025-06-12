@@ -12,16 +12,28 @@ const ReviewSchema = new mongoose.Schema({
         type: String,
         enum: Object.values(reviewTypes),
         required: true,
+        immutable: true,
     },
-    target: {
+    subject: {
         type: Types.ObjectId,
         required: true,
+        immutable: true,
     },
     created: {
         type: Date,
         default: Date.now,
         required: true,
+        immutable: true,
     },
 });
 
-export default mongoose.model("Review", ReviewSchema)
+export interface IReview extends mongoose.Document {
+    comment: string;
+    type: string;
+    subject: Types.ObjectId;
+    created: Date;
+}
+
+export interface IReviewModel extends mongoose.Model<IReview> {}
+
+export default mongoose.model<IReview, IReviewModel>("Review", ReviewSchema)

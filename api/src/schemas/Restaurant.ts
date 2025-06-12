@@ -15,6 +15,7 @@ const RestaurantSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         required: true,
+        immutable: true,
     },
     ramen: {
         type: [ObjectId],
@@ -34,7 +35,6 @@ export interface IRestaurant extends mongoose.Document {
     reviews: mongoose.Types.ObjectId[];
 };
 
-export interface IRestaurantModel extends mongoose.Model<IRestaurant> {
-}
+export interface IRestaurantModel extends mongoose.Model<IRestaurant> {}
 
 export default mongoose.model<IRestaurant, IRestaurantModel>('Restaurant', RestaurantSchema);

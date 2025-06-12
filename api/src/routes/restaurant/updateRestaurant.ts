@@ -13,7 +13,7 @@ const updateRestaurant = async (req: Request, res: Response): Promise<any> => {
             return res.status(400).json({ message: 'Invalid restaurant ID' });
         }
 
-        const invalidFields = fieldValidator(req.body, Restaurant);
+        const invalidFields = fieldValidator(req.body, Restaurant, true);
         if (invalidFields.length > 0) {
             return res.status(400).json({ message: `Invalid field(s): ${invalidFields.join(', ')}` })
         }

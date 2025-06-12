@@ -35,7 +35,7 @@ describe("Add Review", () => {
 
         const review = reviewFactory(reviewTypes.RAMEN, {
             _id: reviewId,
-            target: ramenId,
+            subject: ramenId,
         });
 
         const response = await supertest(app)
@@ -57,7 +57,7 @@ describe("Add Review", () => {
     test("Should add a review to a restaurant", async () => {
         const review = reviewFactory(reviewTypes.RESTAURANT, {
             _id: reviewId,
-            target: restaurantId,
+            subject: restaurantId,
         });
 
         const response = await supertest(app)

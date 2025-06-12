@@ -15,6 +15,7 @@ const RamenSchema = new mongoose.Schema({
     restaurant: {
         type: ObjectId,
         required: true,
+        immutable: true,
     },
     rating: {
         type: Number,
@@ -25,51 +26,46 @@ const RamenSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
         required: true,
+        immutable: true,
     },
     reviews: {
         type: [ObjectId],
     },
     flavor: {
-        type: {
-            saltiness: {
-                type: Number,
-                required: true,
-            },
-            spiciness: {
-                type: Number,
-                required: true,
-            },
-            sweetness: {
-                type: Number,
-                required: true,
-            },
-            umami: {
-                type: Number,
-                required: true,
-            },
-            bitterness: {
-                type: Number,
-                required: true,
-            },
+        saltiness: {
+            type: Number,
+            required: true,
         },
-        required: false,
+        spiciness: {
+            type: Number,
+            required: true,
+        },
+        sweetness: {
+            type: Number,
+            required: true,
+        },
+        umami: {
+            type: Number,
+            required: true,
+        },
+        bitterness: {
+            type: Number,
+            required: true,
+        },
     },
     components: {
-        type: {
-            broth: {
-                type: String,
-                required: true,
-            },
-            toppings: {
-                type: [String],
-                required: true,
-            },
-            noodles: {
-                type: String,
-                required: true,
-            },
+        broth: {
+            type: String,
+            required: true,
         },
-        required: false,
+        toppings: {
+            type: [String],
+            required: true,
+        },
+        noodles: {
+            type: String,
+            required: true,
+        },
     },
 });
 
