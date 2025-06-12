@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Review from "./Review";
+import Review, { IReview } from "./Review";
 
 const restaurantReviewSchema = new mongoose.Schema({
     rating: {
@@ -9,5 +9,15 @@ const restaurantReviewSchema = new mongoose.Schema({
     },
 });
 
+export interface IRestaurantReview extends IReview {
+    rating?: {
+        broth: number;
+        toppings: number;
+        noodles: number;
+    };
+}
+
+export interface IRestaurantReviewModel extends mongoose.Model<IRestaurantReview> {}
+
 Review.discriminator("RestaurantReview", restaurantReviewSchema);
-export default mongoose.model("RestaurantReview");
+export default mongoose.model<IRestaurantReview, IRestaurantReviewModel>("RestaurantReview");

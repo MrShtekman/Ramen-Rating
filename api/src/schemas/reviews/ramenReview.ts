@@ -1,28 +1,35 @@
 import mongoose from "mongoose";
-import Review from "./Review";
+import Review, { IReview } from "./Review";
 
 const ramenReviewSchema = new mongoose.Schema({
     rating: {
-        type: {
-            broth: {
-                type: Number,
-                default: 0,
-                required: true,
-            },
-            toppings: {
-                type: Number,
-                default: 0,
-                required: true,
-            },
-            noodles: {
-                type: Number,
-                default: 0,
-                required: true,
-            },
+        broth: {
+            type: Number,
+            default: 0,
+            required: true,
         },
-        required: true,
+        toppings: {
+            type: Number,
+            default: 0,
+            required: true,
+        },
+        noodles: {
+            type: Number,
+            default: 0,
+            required: true,
+        },
     },
 });
 
+export interface IRamenReview extends IReview {
+    rating?: {
+        broth: number;
+        toppings: number;
+        noodles: number;
+    };
+}
+
+export interface IRamenReviewModel extends mongoose.Model<IRamenReview> {}
+
 Review.discriminator("RamenReview", ramenReviewSchema);
-export default mongoose.model("RamenReview");
+export default mongoose.model<IRamenReview, IRamenReviewModel>("RamenReview");
