@@ -1,7 +1,9 @@
-import { startSession, Types } from 'mongoose';
+import mongoose, { startSession, Types } from 'mongoose';
 import { Request, Response } from 'express';
 
 import Review from '../../schemas/reviews/Review';
+
+import { reviewTypeToTargetModel, ReviewType } from '../../constants/reviewTypesMap';
 
 const deleteReview = async (req: Request, res: Response): Promise<any> => {
     const session = await startSession();
@@ -17,7 +19,8 @@ const deleteReview = async (req: Request, res: Response): Promise<any> => {
             return res.status(404).json({ message: `Review not found!` });
         }
 
-        const subject = await Review.findById(reviewToDelete.subject);
+        const model = reviewTypeToTargetModel[reviewToDelete.type as ReviewType] as mongoose.Model<any>;
+        const subject = await model.findById(reviewToDelete.subject);
         if(!subject){
             return res.status(404).json({ message: `Subject of the review not found!` });
         }

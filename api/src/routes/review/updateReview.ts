@@ -28,7 +28,7 @@ const updateReview = async ( req: Request, res: Response): Promise<any> => {
         Object.assign(reviewToUpdate, req.body);
         await reviewToUpdate.save()
 
-        res.status(200).json(reviewToUpdate);
+        res.status(200).json({ message: "Review updated successfully!", reviewToUpdate });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }

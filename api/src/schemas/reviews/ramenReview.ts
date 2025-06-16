@@ -22,7 +22,7 @@ const ramenReviewSchema = new mongoose.Schema({
 });
 
 export interface IRamenReview extends IReview {
-    rating?: {
+    rating: {
         broth: number;
         toppings: number;
         noodles: number;

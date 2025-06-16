@@ -10,11 +10,7 @@ const restaurantReviewSchema = new mongoose.Schema({
 });
 
 export interface IRestaurantReview extends IReview {
-    rating?: {
-        broth: number;
-        toppings: number;
-        noodles: number;
-    };
+    rating: number;
 }
 
 export interface IRestaurantReviewModel extends mongoose.Model<IRestaurantReview> {}
