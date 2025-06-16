@@ -22,7 +22,7 @@ const updateRestaurant = async (req: Request, res: Response): Promise<any> => {
         if (!updatedRestaurant) {
             return res.status(404).json({ message: 'Restaurant not found' })
         }
-        res.status(200).json(updatedRestaurant);
+        res.status(200).json({message: "Restaurant updated successfully!", updatedRestaurant});
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     }

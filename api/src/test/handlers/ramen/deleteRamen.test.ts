@@ -17,11 +17,13 @@ describe("Delete Ramen", () => {
     let restaurantId: Types.ObjectId;
     let ramenId: Types.ObjectId;
     let reviewId: Types.ObjectId;
+    let secondReviewId: Types.ObjectId;
 
     beforeEach(async () => {
         restaurantId = new Types.ObjectId();
         ramenId = new Types.ObjectId();
         reviewId = new Types.ObjectId();
+        secondReviewId = new Types.ObjectId();
 
         await Restaurant.create(restaurantFactory({
             _id: restaurantId,
@@ -31,7 +33,7 @@ describe("Delete Ramen", () => {
         await Ramen.create(ramenFactory({
             _id: ramenId,
             restaurant: restaurantId,
-            reviews: [reviewId],
+            reviews: [reviewId, secondReviewId],
         }));
 
         await Review.create(reviewFactory(reviewTypes.RAMEN, {
@@ -39,14 +41,19 @@ describe("Delete Ramen", () => {
             comment: "Sooo goood!",
             subject: ramenId,
         }));
+
+        await Review.create(reviewFactory(reviewTypes.RAMEN, {
+            _id: secondReviewId,
+            comment: "This is so bad!",
+            subject: ramenId,
+        }));
     });
     test("Should delete a ramen and its reviews and remove it from the restaurant it belongs to", async () => {
         const response = await supertest(app)
-        .delete(`/ramen/${ramenId}`)
-        
+            .delete(`/ramen/${ramenId}`)    
         expect(response.status).toBe(200);
         expect(response.body).toBeDefined();
-        expect(response.body.message).toBe("Ramen successfully deleted!");
+        expect(response.body.message).toBe("Ramen deleted successfully!");
         
         const deletedRamen = await Ramen.findById(ramenId);
         expect(deletedRamen).toBeNull();
@@ -57,8 +64,8 @@ describe("Delete Ramen", () => {
         }
         expect(updatedRestaurant.ramen).toHaveLength(0);
         
-        const deletedReview = await Review.findById(reviewId);
-        expect(deletedReview).toBeNull();
+        const deletedReview = await Review.find({ _id: { $in: [reviewId, secondReviewId] }});
+        expect(deletedReview).toHaveLength(0);
     });
     test("Should throw error 400 if the ramen ID is invalid", async () => {
         const invalidRamentId = "Look at me, I'm an invalid ID!";

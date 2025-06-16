@@ -32,7 +32,7 @@ const deleteRamen = async (req: Request, res: Response): Promise<any> => {
             await restaurant.updateOne({ $pull: { ramen: ramenToDelete._id}}, { session });
         })
     
-        res.status(200).json({ message: "Ramen successfully deleted!", ramenToDelete });
+        res.status(200).json({ message: "Ramen deleted successfully!", ramenToDelete });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     } finally {

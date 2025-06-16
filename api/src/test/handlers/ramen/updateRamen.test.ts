@@ -69,4 +69,4 @@ describe("Update ramen", () => {
         expect(response.body).toBeDefined();
         expect(response.body.message).toBe("Ramen not found");
     });
-})
+});

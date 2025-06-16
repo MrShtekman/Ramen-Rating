@@ -28,12 +28,12 @@ const deleteRestaurant = async (req: Request, res: Response): Promise<any> => {
             }
             await Restaurant.findByIdAndDelete(id);
         })
-        res.status(200).json({ message: "Restaurant successfully deleted!", restaurantToDelete });
+        res.status(200).json({ message: "Restaurant deleted successfully!", restaurantToDelete });
     } catch (error: any) {
         res.status(500).json({ message: error.message });
     } finally {
         session.endSession();
     }
-}
+};
 
 export default deleteRestaurant;
